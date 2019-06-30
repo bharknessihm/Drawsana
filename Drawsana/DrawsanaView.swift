@@ -26,7 +26,7 @@ public protocol DrawsanaViewDelegate: AnyObject {
 /**
  Add this view to your view hierarchy to get going with Drawsana!
  */
-public class DrawsanaView: UIView {
+@objcMembers public class DrawsanaView: UIView {
   // MARK: Public API
 
   public weak var delegate: DrawsanaViewDelegate?

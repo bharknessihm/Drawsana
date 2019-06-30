@@ -12,7 +12,7 @@ import CoreGraphics
  Collection of properties for use by tools. Unlike `UserSettings`, these
  properties are meant to be set by the tools themselves.
  */
-public class ToolSettings {
+@objcMembers public class ToolSettings: NSObject {
   weak var delegate: ToolSettingsDelegate?
 
   /// Shape which should have the selection rect drawn around it. May also be

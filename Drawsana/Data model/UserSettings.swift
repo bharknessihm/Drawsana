@@ -12,7 +12,7 @@ import CoreGraphics
  Collection of user-settable properties for use by tools when creating new
  shapes.
  */
-public class UserSettings {
+@objcMembers public class UserSettings: NSObject {
   weak var delegate: UserSettingsDelegate?
 
   public var strokeColor: UIColor? {
