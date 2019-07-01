@@ -32,7 +32,7 @@ public protocol DrawsanaViewDelegate: AnyObject {
   public weak var delegate: DrawsanaViewDelegate?
 
   /// Currently active tool
-  public private(set) var tool: DrawingTool?
+  public var tool: DrawingTool?
 
   /// You may set this object's properties and they will be forwarded to the
   /// active tool and applied to new shapes.
