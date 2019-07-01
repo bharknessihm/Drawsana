@@ -8,7 +8,7 @@
 
 import CoreGraphics
 
-public class PenTool: DrawingTool {
+public class PenTool: NSObject, DrawingTool {
   public typealias ShapeType = PenShape
 
   public var name: String { return "Pen" }
@@ -24,7 +24,7 @@ public class PenTool: DrawingTool {
   private var drawingSize: CGSize = .zero
   private var alpha: CGFloat = 0
 
-  public init() { }
+  public override init() { super.init() }
 
   public func handleTap(context: ToolOperationContext, point: CGPoint) {
   }

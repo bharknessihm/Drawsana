@@ -15,7 +15,7 @@ public protocol SelectionToolDelegate: AnyObject {
   func selectionToolDidTapOnAlreadySelectedShape(_ shape: ShapeSelectable)
 }
 
-public class SelectionTool: DrawingTool {
+@objcMembers public class SelectionTool: NSObject, DrawingTool {
   public let name = "Selection"
   
   public var isProgressive: Bool { return false }

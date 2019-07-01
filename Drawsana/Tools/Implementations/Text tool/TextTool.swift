@@ -33,7 +33,7 @@ public protocol TextToolDelegate: AnyObject {
   func textToolDidUpdateEditingViewTransform(_ editingView: TextShapeEditingView, transform: ShapeTransform)
 }
 
-public class TextTool: NSObject, DrawingTool {
+@objcMembers public class TextTool: NSObject, DrawingTool {
   /// MARK: Protocol requirements
 
   public let isProgressive = false
