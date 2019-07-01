@@ -32,7 +32,7 @@ public protocol DrawsanaViewDelegate: AnyObject {
   public weak var delegate: DrawsanaViewDelegate?
 
   /// Currently active tool
-  public var tool: DrawingTool?
+  public var tool: NSDrawingTool?
 
   /// You may set this object's properties and they will be forwarded to the
   /// active tool and applied to new shapes.
@@ -207,7 +207,7 @@ public protocol DrawsanaViewDelegate: AnyObject {
 
   /// Set the active tool to a new value. If you pass `shape`, it is passed on
   /// to the tool's `DrawingTool.activate(context:shape:)` method.
-  public func set(tool: DrawingTool, shape: Shape? = nil) {
+  public func set(tool: NSDrawingTool, shape: Shape? = nil) {
     if let oldTool = self.tool, tool === oldTool {
       return
     }

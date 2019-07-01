@@ -12,14 +12,14 @@ import CoreGraphics
  Base class for tools (rect, line, ellipse) that are drawn by dragging from
  one point to another
  */
-public class DrawingToolForShapeWithTwoPoints: NSObject, DrawingTool {
+public class DrawingToolForShapeWithTwoPoints: NSDrawingTool {
   public typealias ShapeType = Shape & ShapeWithTwoPoints
 
-  public var name: String { fatalError("Override me") }
+  public override var name: String { fatalError("Override me") }
 
   public var shapeInProgress: ShapeType?
 
-  public var isProgressive: Bool { return false }
+  public override var isProgressive: Bool { return false }
 
   public override init() { super.init() }
 
@@ -28,28 +28,28 @@ public class DrawingToolForShapeWithTwoPoints: NSObject, DrawingTool {
     fatalError("Override me")
   }
 
-  public func handleTap(context: ToolOperationContext, point: CGPoint) {
+  public override func handleTap(context: ToolOperationContext, point: CGPoint) {
   }
 
-  public func handleDragStart(context: ToolOperationContext, point: CGPoint) {
+  public override func handleDragStart(context: ToolOperationContext, point: CGPoint) {
     shapeInProgress = makeShape()
     shapeInProgress?.a = point
     shapeInProgress?.b = point
     shapeInProgress?.apply(userSettings: context.userSettings)
   }
 
-  public func handleDragContinue(context: ToolOperationContext, point: CGPoint, velocity: CGPoint) {
+  public override func handleDragContinue(context: ToolOperationContext, point: CGPoint, velocity: CGPoint) {
     shapeInProgress?.b = point
   }
 
-  public func handleDragEnd(context: ToolOperationContext, point: CGPoint) {
+  public override func handleDragEnd(context: ToolOperationContext, point: CGPoint) {
     guard var shape = shapeInProgress else { return }
     shape.b = point
     context.operationStack.apply(operation: AddShapeOperation(shape: shape))
     shapeInProgress = nil
   }
 
-  public func handleDragCancel(context: ToolOperationContext, point: CGPoint) {
+  public override func handleDragCancel(context: ToolOperationContext, point: CGPoint) {
     // No such thing as a cancel for this tool. If this was recognized as a tap,
     // just end the shape normally.
     handleDragEnd(context: context, point: point)

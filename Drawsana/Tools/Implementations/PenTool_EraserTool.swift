@@ -8,12 +8,12 @@
 
 import CoreGraphics
 
-public class PenTool: NSObject, DrawingTool {
+public class PenTool: NSDrawingTool {
   public typealias ShapeType = PenShape
 
-  public var name: String { return "Pen" }
+  public override var name: String { return "Pen" }
   public var shapeInProgress: PenShape?
-  public var isProgressive: Bool { return false }
+  public override var isProgressive: Bool { return false }
   public var velocityBasedWidth: Bool = false
 
   private var lastVelocity: CGPoint = .zero
@@ -26,10 +26,10 @@ public class PenTool: NSObject, DrawingTool {
 
   public override init() { super.init() }
 
-  public func handleTap(context: ToolOperationContext, point: CGPoint) {
+  public override func handleTap(context: ToolOperationContext, point: CGPoint) {
   }
 
-  public func handleDragStart(context: ToolOperationContext, point: CGPoint) {
+  public override func handleDragStart(context: ToolOperationContext, point: CGPoint) {
     drawingSize = context.drawing.size
     var white: CGFloat = 0  // ignored
     context.userSettings.strokeColor?.getWhite(&white, alpha: &self.alpha)
@@ -42,7 +42,7 @@ public class PenTool: NSObject, DrawingTool {
     shape.strokeColor = shape.strokeColor.withAlphaComponent(1)
   }
 
-  public func handleDragContinue(context: ToolOperationContext, point: CGPoint, velocity: CGPoint) {
+  public override func handleDragContinue(context: ToolOperationContext, point: CGPoint, velocity: CGPoint) {
     guard let shape = shapeInProgress else { return }
     let lastPoint = shape.segments.last?.b ?? shape.start
     let segmentWidth: CGFloat
@@ -62,7 +62,7 @@ public class PenTool: NSObject, DrawingTool {
     lastVelocity = velocity
   }
 
-  public func handleDragEnd(context: ToolOperationContext, point: CGPoint) {
+  public override func handleDragEnd(context: ToolOperationContext, point: CGPoint) {
     guard let shapeInProgress = shapeInProgress else { return }
     shapeInProgress.isFinished = true
     shapeInProgress.apply(userSettings: context.userSettings)
@@ -71,7 +71,7 @@ public class PenTool: NSObject, DrawingTool {
     shapeInProgressBuffer = nil
   }
 
-  public func handleDragCancel(context: ToolOperationContext, point: CGPoint) {
+  public override func handleDragCancel(context: ToolOperationContext, point: CGPoint) {
     // No such thing as a cancel for this tool. If this was recognized as a tap,
     // just end the shape normally.
     handleDragEnd(context: context, point: point)

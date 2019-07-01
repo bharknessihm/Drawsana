@@ -33,11 +33,12 @@ public protocol TextToolDelegate: AnyObject {
   func textToolDidUpdateEditingViewTransform(_ editingView: TextShapeEditingView, transform: ShapeTransform)
 }
 
-@objcMembers public class TextTool: NSObject, DrawingTool {
+@objcMembers public class TextTool: NSDrawingTool {
   /// MARK: Protocol requirements
 
-  public let isProgressive = false
-  public let name: String = "Text"
+    
+  public override var isProgressive: Bool { return false }
+  public override var name: String { return "Text" }
 
   // MARK: Public properties
 
@@ -80,7 +81,7 @@ public protocol TextToolDelegate: AnyObject {
     selectedShape = nil
   }
 
-  public func handleTap(context: ToolOperationContext, point: CGPoint) {
+  public override func handleTap(context: ToolOperationContext, point: CGPoint) {
     if let shapeInProgress = self.selectedShape {
       handleTapWhenShapeIsActive(context: context, point: point, shape: shapeInProgress)
     } else {
@@ -117,7 +118,7 @@ public protocol TextToolDelegate: AnyObject {
     }
   }
 
-  public func handleDragStart(context: ToolOperationContext, point: CGPoint) {
+  public override func handleDragStart(context: ToolOperationContext, point: CGPoint) {
     guard let shape = selectedShape else { return }
     if let dragActionType = editingView.getDragActionType(point: point), case .resizeAndRotate = dragActionType {
       dragHandler = ResizeAndRotateHandler(shape: shape, textTool: self)
@@ -135,7 +136,7 @@ public protocol TextToolDelegate: AnyObject {
     }
   }
 
-  public func handleDragContinue(context: ToolOperationContext, point: CGPoint, velocity: CGPoint) {
+  public override func handleDragContinue(context: ToolOperationContext, point: CGPoint, velocity: CGPoint) {
     if let dragHandler = dragHandler {
       dragHandler.handleDragContinue(context: context, point: point, velocity: velocity)
     } else {
@@ -149,7 +150,7 @@ public protocol TextToolDelegate: AnyObject {
     }
   }
 
-  public func handleDragEnd(context: ToolOperationContext, point: CGPoint) {
+  public override func handleDragEnd(context: ToolOperationContext, point: CGPoint) {
     if let dragHandler = dragHandler {
       dragHandler.handleDragEnd(context: context, point: point)
       self.dragHandler = nil
@@ -158,7 +159,7 @@ public protocol TextToolDelegate: AnyObject {
     updateTextView()
   }
 
-  public func handleDragCancel(context: ToolOperationContext, point: CGPoint) {
+  public override func handleDragCancel(context: ToolOperationContext, point: CGPoint) {
     if let dragHandler = dragHandler {
       dragHandler.handleDragCancel(context: context, point: point)
       self.dragHandler = nil

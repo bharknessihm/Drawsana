@@ -15,10 +15,10 @@ public protocol SelectionToolDelegate: AnyObject {
   func selectionToolDidTapOnAlreadySelectedShape(_ shape: ShapeSelectable)
 }
 
-@objcMembers public class SelectionTool: NSObject, DrawingTool {
-  public let name = "Selection"
-  
-  public var isProgressive: Bool { return false }
+@objcMembers public class SelectionTool: NSDrawingTool {
+
+  public override var name: String { return "Selection" }
+  public override var isProgressive: Bool { return false }
 
   /// You may set yourself as the delegate to be notified when special selection
   /// events happen that you might want to react to. The core framework does
@@ -68,7 +68,7 @@ public protocol SelectionToolDelegate: AnyObject {
     }
   }
 
-  public func handleTap(context: ToolOperationContext, point: CGPoint) {
+  public override func handleTap(context: ToolOperationContext, point: CGPoint) {
     if let selectedShape = context.toolSettings.selectedShape, selectedShape.hitTest(point: point) == true {
       if let delegate = delegate {
         delegate.selectionToolDidTapOnAlreadySelectedShape(selectedShape)
@@ -85,7 +85,7 @@ public protocol SelectionToolDelegate: AnyObject {
       .last)
   }
 
-  public func handleDragStart(context: ToolOperationContext, point: CGPoint) {
+  public override func handleDragStart(context: ToolOperationContext, point: CGPoint) {
     guard let selectedShape = context.toolSettings.selectedShape, selectedShape.hitTest(point: point) else {
       isDraggingShape = false
       return
@@ -95,7 +95,7 @@ public protocol SelectionToolDelegate: AnyObject {
     startPoint = point
   }
 
-  public func handleDragContinue(context: ToolOperationContext, point: CGPoint, velocity: CGPoint) {
+  public override func handleDragContinue(context: ToolOperationContext, point: CGPoint, velocity: CGPoint) {
     guard
       isDraggingShape,
       let originalTransform = originalTransform,
@@ -110,7 +110,7 @@ public protocol SelectionToolDelegate: AnyObject {
     context.toolSettings.isPersistentBufferDirty = true
   }
 
-  public func handleDragEnd(context: ToolOperationContext, point: CGPoint) {
+  public override func handleDragEnd(context: ToolOperationContext, point: CGPoint) {
     guard
       isDraggingShape,
       let originalTransform = originalTransform,
@@ -129,7 +129,7 @@ public protocol SelectionToolDelegate: AnyObject {
     isDraggingShape = false
   }
 
-  public func handleDragCancel(context: ToolOperationContext, point: CGPoint) {
+  public override func handleDragCancel(context: ToolOperationContext, point: CGPoint) {
     guard isDraggingShape else { return }
     context.toolSettings.selectedShape?.transform = originalTransform ?? .identity
     context.toolSettings.isPersistentBufferDirty = true
