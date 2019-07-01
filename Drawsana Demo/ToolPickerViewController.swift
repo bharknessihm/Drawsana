@@ -10,14 +10,14 @@ import Drawsana
 import UIKit
 
 protocol ToolPickerViewControllerDelegate: AnyObject {
-  func toolPickerViewControllerDidPick(tool: DrawingTool)
+  func toolPickerViewControllerDidPick(tool: NSDrawingTool)
 }
 
 class ToolPickerViewController: UIViewController {
-  let tools: [DrawingTool]
+  let tools: [NSDrawingTool]
   weak var delegate: ToolPickerViewControllerDelegate?
 
-  init(tools: [DrawingTool], delegate: ToolPickerViewControllerDelegate) {
+  init(tools: [NSDrawingTool], delegate: ToolPickerViewControllerDelegate) {
     self.tools = tools
     self.delegate = delegate
     super.init(nibName: nil, bundle: nil)

@@ -59,6 +59,9 @@ public protocol TextToolDelegate: AnyObject {
   // internal for use by DragHandler subclasses
   internal lazy var editingView: TextShapeEditingView = makeTextView()
 
+    public override init(){
+        super.init()
+    }
   public init(delegate: TextToolDelegate? = nil) {
     super.init()
     self.delegate = delegate

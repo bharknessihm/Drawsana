@@ -9,7 +9,7 @@
 /**
  Store and manage the undo/redo stack for a drawing
  */
-public class DrawingOperationStack {
+@objcMembers public class DrawingOperationStack: NSObject {
   /// You may set a custom delegate for `DrawingOperationStack` if you want to
   /// know when undo/redo are available in realtime. The core framework does not
   /// use this delegate.

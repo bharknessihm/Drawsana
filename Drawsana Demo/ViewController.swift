@@ -70,7 +70,7 @@ class ViewController: UIViewController {
   /// respond to relevant UI events
   lazy var selectionTool = { return SelectionTool(delegate: self) }()
 
-  lazy var tools: [DrawingTool] = { return [
+  lazy var tools: [NSDrawingTool] = { return [
     PenTool(),
     textTool,
     selectionTool,
@@ -273,7 +273,7 @@ extension ViewController: ColorPickerViewControllerDelegate {
 }
 
 extension ViewController: ToolPickerViewControllerDelegate {
-  func toolPickerViewControllerDidPick(tool: DrawingTool) {
+  func toolPickerViewControllerDidPick(tool: NSDrawingTool) {
     drawingView.set(tool: tool)
     dismiss(animated: true, completion: nil)
   }
