@@ -46,11 +46,11 @@ public protocol SelectionToolDelegate: AnyObject {
     self.delegate = delegate
   }
 
-  public func deactivate(context: ToolOperationContext) {
+  public override func deactivate(context: ToolOperationContext) {
     context.toolSettings.selectedShape = nil
   }
 
-  public func apply(context: ToolOperationContext, userSettings: UserSettings) {
+  public override func apply(context: ToolOperationContext, userSettings: UserSettings) {
     if let shape = context.toolSettings.selectedShape {
       if isUpdatingSelection {
         if let shapeWithStandardState = shape as? ShapeWithStandardState {

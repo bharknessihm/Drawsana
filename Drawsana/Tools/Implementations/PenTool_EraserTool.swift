@@ -77,7 +77,7 @@ public class PenTool: NSDrawingTool {
     handleDragEnd(context: context, point: point)
   }
 
-  public func renderShapeInProgress(transientContext: CGContext) {
+  public override func renderShapeInProgress(transientContext: CGContext) {
     shapeInProgressBuffer = DrawsanaUtilities.renderImage(size: drawingSize) {
       self.shapeInProgressBuffer?.draw(at: .zero)
       self.shapeInProgress?.renderLatestSegment(in: $0)

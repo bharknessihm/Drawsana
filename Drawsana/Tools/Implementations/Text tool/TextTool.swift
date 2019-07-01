@@ -66,14 +66,14 @@ public protocol TextToolDelegate: AnyObject {
 
   // MARK: Tool lifecycle
 
-  public func activate(shapeUpdater: DrawsanaViewShapeUpdating, context: ToolOperationContext, shape: Shape?) {
+  public override func activate(shapeUpdater: DrawsanaViewShapeUpdating, context: ToolOperationContext, shape: Shape?) {
     self.shapeUpdater = shapeUpdater
     if let shape = shape as? TextShape {
       beginEditing(shape: shape, context: context)
     }
   }
 
-  public func deactivate(context: ToolOperationContext) {
+  public override func deactivate(context: ToolOperationContext) {
     context.toolSettings.interactiveView?.resignFirstResponder()
     context.toolSettings.interactiveView = nil
     context.toolSettings.selectedShape = nil
@@ -166,7 +166,7 @@ public protocol TextToolDelegate: AnyObject {
     }
   }
 
-  public func apply(context: ToolOperationContext, userSettings: UserSettings) {
+  public override func apply(context: ToolOperationContext, userSettings: UserSettings) {
     selectedShape?.apply(userSettings: userSettings)
     updateTextView()
     if context.toolSettings.selectedShape == nil {

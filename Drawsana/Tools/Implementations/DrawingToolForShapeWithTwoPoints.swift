@@ -55,11 +55,11 @@ public class DrawingToolForShapeWithTwoPoints: NSDrawingTool {
     handleDragEnd(context: context, point: point)
   }
 
-  public func renderShapeInProgress(transientContext: CGContext) {
+  public override func renderShapeInProgress(transientContext: CGContext) {
     shapeInProgress?.render(in: transientContext)
   }
 
-  public func apply(context: ToolOperationContext, userSettings: UserSettings) {
+  public override func apply(context: ToolOperationContext, userSettings: UserSettings) {
     shapeInProgress?.apply(userSettings: userSettings)
     context.toolSettings.isPersistentBufferDirty = true
   }

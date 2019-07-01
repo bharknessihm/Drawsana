@@ -31,5 +31,10 @@ public class NSDrawingTool: NSObject, DrawingTool {
     public func handleDragCancel(context: ToolOperationContext, point: CGPoint) {
     }
     
+    public func activate(shapeUpdater: DrawsanaViewShapeUpdating, context: ToolOperationContext, shape: Shape?) { }
+    public func deactivate(context: ToolOperationContext) { }
+    public func apply(context: ToolOperationContext, userSettings: UserSettings) { }
+    public func renderShapeInProgress(transientContext: CGContext) { }
+    
 
 }
