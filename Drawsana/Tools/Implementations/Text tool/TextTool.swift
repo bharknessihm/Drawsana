@@ -9,7 +9,7 @@
 import CoreGraphics
 import UIKit
 
-public protocol TextToolDelegate: AnyObject {
+@objc public protocol TextToolDelegate: AnyObject {
   /// Given the point where the user tapped, return the point where a text
   /// shape should be created. You might want to set it to a specific point, or
   /// make sure it's above the keyboard.
@@ -30,7 +30,7 @@ public protocol TextToolDelegate: AnyObject {
   /// this method empty, but unless you want your text controls to scale with
   /// the text, you'll need to do some math and apply some inverse scaling
   /// transforms here.
-  func textToolDidUpdateEditingViewTransform(_ editingView: TextShapeEditingView, transform: ShapeTransform)
+  func textToolDidUpdateEditingViewTransform(_ editingView: TextShapeEditingView, scale: CGFloat)
 }
 
 @objcMembers public class TextTool: NSDrawingTool {
@@ -253,7 +253,7 @@ public protocol TextToolDelegate: AnyObject {
       y: -shape.boundingRect.size.height / 2
     ).concatenating(shape.transform.affineTransform)
 
-    delegate?.textToolDidUpdateEditingViewTransform(editingView, transform: shape.transform)
+    delegate?.textToolDidUpdateEditingViewTransform(editingView, scale: shape.transform.scale)
 
     editingView.setNeedsLayout()
     editingView.layoutIfNeeded()

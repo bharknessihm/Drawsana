@@ -414,9 +414,9 @@ extension ViewController: TextToolDelegate {
     }
   }
 
-  func textToolDidUpdateEditingViewTransform(_ editingView: TextShapeEditingView, transform: ShapeTransform) {
+  func textToolDidUpdateEditingViewTransform(_ editingView: TextShapeEditingView, scale: CGFloat) {
     for control in editingView.controls {
-      control.view.transform = CGAffineTransform(scaleX: 1/transform.scale, y: 1/transform.scale)
+      control.view.transform = CGAffineTransform(scaleX: 1/scale, y: 1/scale)
     }
   }
 }
